@@ -1,0 +1,22 @@
+{
+    "name": "jinas/covid-19-101",
+    "description": "PHP Toolkit to get data about covid19",
+    "license": "MIT",
+    "authors": [{
+        "name": "Mohamed Jinas",
+        "email": "j@live.mv"
+    }],
+    "require": {
+        "tightenco/collect": "^7.2",
+        "fabpot/goutte": "^4.0",
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jinas\\Covid19\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.0"
+    }
+}
