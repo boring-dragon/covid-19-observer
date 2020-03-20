@@ -1,6 +1,12 @@
-# covid-19-observer
+# Covid-19 observer
 
 PHP Toolkit to get data about covid19.
+
+## Installation
+
+```
+composer require jinas/covid-19-observer
+```
 
 ## Packages Used
 
