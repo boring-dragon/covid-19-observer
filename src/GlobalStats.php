@@ -29,6 +29,28 @@ class GlobalStats
     }
     
     /**
+     * GetTotal
+     * 
+     *  Get Total number of confirmed cases,recovered and deaths globally
+     * 
+     *  From hopkins API.
+     *
+     * @return array
+     */
+    public function GetTotal() : array
+    {
+        $cases = collect($this->GetAll());
+
+        $data = [
+            'total_confirmed' => $cases->sum('Confirmed'),
+            'total_recovered' => $cases->sum('Recovered'),
+            'total_deaths' => $cases->sum('Deaths')
+        ];
+
+        return $data;
+    }
+    
+    /**
      * GetAll
      *
      *  Get all the attributes returned by hopkins API
