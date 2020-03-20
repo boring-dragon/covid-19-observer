@@ -1,7 +1,9 @@
 # covid-19-observer
+
 PHP Toolkit to get data about covid19.
 
 ## Packages Used
+
 - [Guzzle](https://github.com/guzzle/guzzle)
 - [Goutte](https://github.com/FriendsOfPHP/Goutte)
 - [Illuminate Collections](https://github.com/tightenco/collect)
@@ -12,6 +14,7 @@ PHP Toolkit to get data about covid19.
 ## Available Helper Classes
 
 ### \Jinas\Covid19\MV\MaldivesStats
+
 Wrapper around coronamv API.
 
 List of available functions:
@@ -24,6 +27,7 @@ List of available functions:
 - GetAlertLevelsSortedByLevel(): Get all the alert levels in maldives sorted by highest level.
 
 ### \Jinas\Covid19\MV\HPA
+
 Wrapper around HPA MV API.
 
 List of available functions:
@@ -36,6 +40,7 @@ List of available functions:
 - GetTravelBans(): Get all the travel bannned countries.
 
 ### \Jinas\Covid19\MV\NewsFeed
+
 Fetch the news assosiated with covid 19 from maldivian news websites.
 
 List of available functions:
@@ -43,6 +48,7 @@ List of available functions:
 - FetchNews(): Fetch news assosiated with covid 19 in avas and sun news as an array.
 
 ### \Jinas\Covid19\MV\Feed
+
 Get Global case Feed in dhivehi. Wrapper around coronamv feeds API.
 
 List of available functions:
@@ -50,6 +56,7 @@ List of available functions:
 - GetTimeline(): Get Global case Feed in dhivehi.
 
 ### \Jinas\Covid19\GlobalStats
+
 Wrapper around John hopkin's API.
 
 List of available functions:
@@ -63,8 +70,13 @@ List of available functions:
 
 
 ## Source
+
 - [John Hopkins](https://www.jhu.edu/)
 - [Ministry of health republic of maldives](https://covid19.health.gov.mv)
 - [Coronamv](https://coronamv.live/)
 - [Avas News](https://avas.mv/)
 - [Sun News](http://www.sun.mv/)
+
+## License
+
+MIT License 2020, Mohamed Jinas.
