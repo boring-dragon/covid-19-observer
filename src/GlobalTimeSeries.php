@@ -14,7 +14,7 @@ class GlobalTimeSeries
     }
 
 
-    public function FetchTimeSeries(string $endpoint) : void
+    protected function FetchTimeSeries(string $endpoint) : void
     {
         $client = new Client;
         $data = $client->get($endpoint);
