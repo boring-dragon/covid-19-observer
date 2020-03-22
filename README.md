@@ -72,8 +72,6 @@ List of available functions:
 - GetAllCountries(): Get an array of available countries in Hopkin's Database.
 - GetTotalByCountry(): Get the total confirmed cases,recovered,deaths in countries.
 - GetAllGroupedByCountry(): Get all the attributes returned by hopkins API grouped by country region.
-- 
-
 
 ## Source
 
