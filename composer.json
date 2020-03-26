@@ -9,7 +9,8 @@
     "require": {
         "tightenco/collect": "^7.2",
         "fabpot/goutte": "^4.0",
-        "guzzlehttp/guzzle": "^6.5"
+        "guzzlehttp/guzzle": "^6.5",
+        "intervention/image": "^2.5"
     },
     "autoload": {
         "psr-4": {

@@ -127,10 +127,6 @@ class HPA
      */
     public function GetTravelBans() : array
     {
-        $travelbans = collect(Arr::get($this->api_response, 'local.travel_bans'));
-        $newcollection = collect($travelbans->pluck('english_country'));
-        $combinedArray = $newcollection->combine($travelbans->pluck('english_details'));
-        
-        return $combinedArray->toArray();
+        return Arr::get($this->api_response, 'local.travel_bans');
     }
 }
