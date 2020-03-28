@@ -83,6 +83,12 @@ List of available functions:
 - [Avas News](https://avas.mv/)
 - [Sun News](http://www.sun.mv/)
 
+## Showcase
+
+- [Coronamv](https://coronamv.live/), (Web) by [Baraveli](https://baraveli.xyz/)
+- [COVID19](https://covid19.kodeserve.mv/), (Web) by [KodeServe](https://kodeserve.mv/)
+
+
 ## License
 
 MIT License 2020, Mohamed Jinas.
