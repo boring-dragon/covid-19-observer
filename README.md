@@ -1,5 +1,7 @@
 # Covid-19 observer
 
+[![Build Status](https://travis-ci.org/jinas123/covid-19-observer.svg?branch=master)](https://travis-ci.org/jinas123/covid-19-observer)
+
 PHP Toolkit to get data about covid19.
 
 ## Installation
