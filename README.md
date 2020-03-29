@@ -75,6 +75,16 @@ List of available functions:
 - GetTotalByCountry(): Get the total confirmed cases,recovered,deaths in countries.
 - GetAllGroupedByCountry(): Get all the attributes returned by hopkins API grouped by country region.
 
+
+### \Jinas\Covid19\GlobalStatistics
+
+Wrapper around covid19api.com API.
+
+List of available functions:
+
+- GetTotal(): Get Total number of confirmed cases,recovered,active and deaths globally.
+- GetAll(): Get all the attributes returned by API.
+
 ## Source
 
 - [John Hopkins](https://www.jhu.edu/)
