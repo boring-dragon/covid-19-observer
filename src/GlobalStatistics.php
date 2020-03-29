@@ -5,15 +5,9 @@ use Jinas\Covid19\Http\Client;
 
 class GlobalStatistics
 {
-    protected $api_response;
+    public $api_response;
     public $updated_at;
     public const CASES_ENDPOINT = "https://api.covid19api.com/summary";
-
-
-    public function __construct()
-    {
-        $this->FetchCases($this::CASES_ENDPOINT);
-    }
 
 
      /**
@@ -21,14 +15,16 @@ class GlobalStatistics
      *
      *  Fetch the cases from API
      *
-     * @return void
+     * @return object
      */
-    protected function FetchCases(string $endpoint) : void
+    public function FetchCases(string $endpoint) : object
     {
         $client = new Client;
-        $data = $client->get($endpoint);
+        $data = $client->get($this::CASES_ENDPOINT);
         $this->updated_at = $data["Date"];
         $this->api_response = $data["Countries"];
+
+        return $this;
     }
     
     /**

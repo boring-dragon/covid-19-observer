@@ -4,7 +4,8 @@ namespace Jinas\Covid19\Http;
 use GuzzleHttp\Client as GuzzleClient;
 
 class Client extends GuzzleClient
-{    
+{
+
     /**
      * get
      * 
