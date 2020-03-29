@@ -63,7 +63,7 @@ List of available functions:
 
 - GetTimeline(): Get Global case Feed in dhivehi.
 
-### \Jinas\Covid19\GlobalStats
+### \Jinas\Covid19\Hopkins\GlobalStats
 
 Wrapper around John hopkin's API.
 

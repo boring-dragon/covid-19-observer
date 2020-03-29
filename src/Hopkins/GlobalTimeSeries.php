@@ -1,5 +1,5 @@
 <?php
-namespace Jinas\Covid19;
+namespace Jinas\Covid19\Hopkins;
 
 use Jinas\Covid19\Http\Client;
 

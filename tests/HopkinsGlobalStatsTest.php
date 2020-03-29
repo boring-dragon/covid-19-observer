@@ -1,10 +1,10 @@
 <?php
 
-class GlobalStatsTest extends \PHPUnit\Framework\TestCase
+class HopkinsGlobalStatsTest extends \PHPUnit\Framework\TestCase
 {
     public function testIfGetTotalIsValid()
     {
-        $globalstats = new \Jinas\Covid19\GlobalStats;
+        $globalstats = new \Jinas\Covid19\Hopkins\GlobalStats;
         $array = $globalstats->GetTotal();
 
         $this->assertIsArray($array);
@@ -17,7 +17,7 @@ class GlobalStatsTest extends \PHPUnit\Framework\TestCase
 
     public function testIfGetAllIsValid()
     {
-        $globalstats = new \Jinas\Covid19\GlobalStats;
+        $globalstats = new \Jinas\Covid19\Hopkins\GlobalStats;
         $response = $globalstats->GetAll();
         $array = $response[0];
 
@@ -35,13 +35,13 @@ class GlobalStatsTest extends \PHPUnit\Framework\TestCase
 
     public function testIfGetAllCountriesReturnsAnArray()
     {
-        $globalstats = new \Jinas\Covid19\GlobalStats;
+        $globalstats = new \Jinas\Covid19\Hopkins\GlobalStats;
         $this->assertIsArray($globalstats->GetAllCountries());
     }
 
     public function testIfGetTotalByCountryIsValid()
     {
-        $globalstats = new \Jinas\Covid19\GlobalStats;
+        $globalstats = new \Jinas\Covid19\Hopkins\GlobalStats;
 
         $response = $globalstats->GetTotalByCountry();
         $array = $response[0];
@@ -56,7 +56,7 @@ class GlobalStatsTest extends \PHPUnit\Framework\TestCase
 
     public function testIfGetAllGroupedByCountryIsValid()
     {
-        $globalstats = new \Jinas\Covid19\GlobalStats;
+        $globalstats = new \Jinas\Covid19\Hopkins\GlobalStats;
 
         $countries = $globalstats->GetAllCountries();
         $array = $globalstats->GetAllGroupedByCountry();
