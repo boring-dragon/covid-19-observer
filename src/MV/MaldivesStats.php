@@ -5,6 +5,7 @@
 namespace Jinas\Covid19\MV;
 
 use Jinas\Covid19\Http\Client;
+use Tightenco\Collect\Support\Arr;
 
 class MaldivesStats
 {
@@ -29,7 +30,7 @@ class MaldivesStats
     {
         $client = new Client;
         $data = $client->get($endpoint);
-        $this->maldivesData =  $data["data"];
+        $this->maldivesData =  Arr::get($data,'data.data');
     }
 
     /**

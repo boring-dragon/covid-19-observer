@@ -27,7 +27,7 @@ class HPA
     {
         $client = new Client;
         $data = $client->get($endpoint);
-        $this->api_response =  collect($data);
+        $this->api_response =  collect(Arr::get($data,'data'));
     }
     
     /**

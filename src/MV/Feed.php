@@ -2,6 +2,7 @@
 namespace Jinas\Covid19\MV;
 
 use Jinas\Covid19\Http\Client;
+use Tightenco\Collect\Support\Arr;
 
 class Feed
 {
@@ -18,7 +19,7 @@ class Feed
     {
         $client = new Client;
         $data = $client->get("https://api.coronamv.live/v1/open/global/feeds");
-        $collection = collect($data["data"]);
+        $collection = collect(Arr::get($data,'data.data'));
         $latest = $collection->reverse();
 
         return $latest->toArray();
