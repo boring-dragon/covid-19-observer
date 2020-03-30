@@ -11,6 +11,18 @@ class GlobalStatisticsTest extends \PHPUnit\Framework\TestCase
         $this->api_stack = $data["Countries"];
     }
 
+    public function testCanFetchCases()
+    {
+        $globalstats = new \Jinas\Covid19\GlobalStatistics;
+
+        $fetchcases = $globalstats->FetchCases();
+        
+        $this->assertEquals(200,$fetchcases->api_statuscode);
+
+        //Checking if the FetchCases method is chainable
+        $this->assertInstanceOf(\Jinas\Covid19\GlobalStatistics::class,$fetchcases);
+    }
+
     public function testIfGetTotalIsValid()
     {
         $globalstats = new \Jinas\Covid19\GlobalStatistics;
