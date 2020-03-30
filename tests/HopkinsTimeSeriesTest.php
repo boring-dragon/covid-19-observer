@@ -19,7 +19,18 @@ class HopkinsTimeSeriesTest extends \PHPUnit\Framework\TestCase
         
         $this->assertEquals(200,$globalstats->api_statuscode);
 
-        //Checking if the FetchCases method is chainable
+        //Checking if the FetchTimeSeries method is chainable
         $this->assertInstanceOf(\Jinas\Covid19\Hopkins\GlobalTimeSeries::class,$fetchcases);
+    }
+
+
+    public function testIfGetAllTimeSeriesReturnsAnArray()
+    {
+        $globalstats = new \Jinas\Covid19\Hopkins\GlobalTimeSeries;
+
+        $globalstats->api_response = $this->api_stack;
+
+        $this->assertIsArray($globalstats->GetAllTimeSeries());
+        $this->assertNotEmpty($globalstats->GetAllTimeSeries());
     }
 }
