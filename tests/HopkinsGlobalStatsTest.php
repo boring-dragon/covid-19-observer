@@ -10,6 +10,18 @@ class HopkinsGlobalStatsTest extends \PHPUnit\Framework\TestCase
         $this->api_stack = $data["features"];
     }
 
+    public function testCanFetchCases()
+    {
+        $globalstats = new \Jinas\Covid19\Hopkins\GlobalStats;
+
+        $fetchcases = $globalstats->FetchCases();
+        
+        $this->assertEquals(200,$globalstats->api_statuscode);
+
+        //Checking if the FetchCases method is chainable
+        $this->assertInstanceOf(\Jinas\Covid19\Hopkins\GlobalStats::class,$fetchcases);
+    }
+
 
     public function testIfGetTotalIsValid()
     {

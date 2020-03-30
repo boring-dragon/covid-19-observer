@@ -17,7 +17,7 @@ class GlobalStatisticsTest extends \PHPUnit\Framework\TestCase
 
         $fetchcases = $globalstats->FetchCases();
         
-        $this->assertEquals(200,$fetchcases->api_statuscode);
+        $this->assertEquals(200,$globalstats->api_statuscode);
 
         //Checking if the FetchCases method is chainable
         $this->assertInstanceOf(\Jinas\Covid19\GlobalStatistics::class,$fetchcases);
