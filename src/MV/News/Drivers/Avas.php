@@ -2,6 +2,7 @@
 namespace Jinas\Covid19\MV\News\Drivers;
 
 use Goutte\Client;
+use Exception;
 
 class Avas
 {

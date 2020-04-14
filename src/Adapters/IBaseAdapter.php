@@ -44,6 +44,14 @@ interface IBaseAdapter
     ];
 
 
-    public function GetTotal(): array;
-    public function GetAll(): array;
+    public const WORLDOMETER = [
+        "base_path" => [
+            "method" => "GET",
+            "path" => "https://www.worldometers.info/coronavirus"
+        ]
+    ];
+
+
+    public function GetTotal() : array;
+    public function GetAll() : array;
 }
