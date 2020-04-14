@@ -21,7 +21,7 @@ composer require jinas/covid-19-observer
 
 ## Usage
 
-Load the adapter you want to into statistics class LoadAdaptermethod
+Load the adapter you want to use into statistics class LoadAdaptermethod
 
 ```php
 
