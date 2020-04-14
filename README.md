@@ -16,8 +16,34 @@ composer require jinas/covid-19-observer
 - [Goutte](https://github.com/FriendsOfPHP/Goutte)
 - [Illuminate Collections](https://github.com/tightenco/collect)
 
-> All the global data is from John Hopkins University CSSE
+> All the global data is from John Hopkins University CSSE, COVID19API, COVIDREST,WOLRDOMETER
 > Local Data(Maldives) by HPA, Coronamv
+
+## Usage
+
+Load the adapter you want to into statistics class LoadAdaptermethod
+
+```php
+
+use Jinas\Covid19\Statistics;
+
+$stats = Statistics::LoadAdapter(
+    new \Jinas\Covid19\Adapters\WorldoMeter
+);
+
+// Returns the total number of confirmed,recovered and deaths
+$stats->GetTotal(); 
+
+```
+
+## Available Adapters
+
+\Jinas\Covid19\Adapters
+
+- JohnHopkins
+- Covid19API
+- CovidRest
+- WorldoMeter
 
 ## Available Helper Classes
 
@@ -63,7 +89,7 @@ List of available functions:
 
 - GetTimeline(): Get Global case Feed in dhivehi.
 
-### \Jinas\Covid19\Hopkins\GlobalStats
+### \Jinas\Covid19\Adapters\JohnHopkins
 
 Wrapper around John hopkin's API.
 
@@ -74,9 +100,10 @@ List of available functions:
 - GetAllCountries(): Get an array of available countries in Hopkin's Database.
 - GetTotalByCountry(): Get the total confirmed cases,recovered,deaths in countries.
 - GetAllGroupedByCountry(): Get all the attributes returned by hopkins API grouped by country region.
+- GetTimeSeries() :  Get all the confirmed cases,recovered,deaths in timeseries
 
 
-### \Jinas\Covid19\GlobalStatistics
+### \Jinas\Covid19\Adapters\Covid19API
 
 Wrapper around covid19api.com API.
 
@@ -88,6 +115,9 @@ List of available functions:
 ## Source
 
 - [John Hopkins](https://www.jhu.edu/)
+- [WorldoMeter](https://www.worldometers.info/coronavirus/)
+- [CovidRest](http://covid-rest.herokuapp.com/)
+- [Covid19API](https://covid19api.com/)
 - [Ministry of health republic of maldives](https://covid19.health.gov.mv)
 - [Coronamv](https://coronamv.live/)
 - [Avas News](https://avas.mv/)
