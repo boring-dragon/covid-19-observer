@@ -1,14 +1,21 @@
 <?php
-namespace Jinas\Covid19\Hopkins;
+namespace Jinas\Covid19\Adapters;
 
 use Jinas\Covid19\Http\Client;
 use Tightenco\Collect\Support\Arr;
+use Jinas\Covid19\Adapters\IBaseAdapter;
 
-class GlobalStats
+class JohnHopkins implements IBaseAdapter
 {
-    public const CASES_ENDPOINT = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases/FeatureServer/1/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Confirmed%20desc%2CCountry_Region%20asc%2CProvince_State%20asc&outSR=102100&resultOffset=0&resultRecordCount=300&cacheHint=true";
-    public $api_response;
-    public $api_statuscode;
+    protected $api_response;
+
+    protected $client;
+
+    public function __construct()
+    {
+        $this->client = new Client;
+        $this->FetchCases();
+    }
 
     /**
      * FetchCases
@@ -17,21 +24,17 @@ class GlobalStats
      *
      * @return void
      */
-    public function FetchCases() : object
+    protected function FetchCases() : void
     {
-        $client = new Client;
-        $data = $client->get($this::CASES_ENDPOINT);
-        $this->api_response = Arr::get($data,'data.features');
-        $this->api_statuscode = Arr::get($data,'status_code');
-
-        return $this;
+        $data = $this->client->get(Arr::get(IBaseAdapter::JOHNHOPKINS_API, 'getcases.path'));
+        $this->api_response = $data["features"];
     }
     
     /**
      * GetTotal
-     * 
+     *
      *  Get Total number of confirmed cases,recovered and deaths globally
-     * 
+     *
      *  From hopkins API.
      *
      * @return array
@@ -125,19 +128,36 @@ class GlobalStats
 
         return $countryTotal;
     }
-    
+
     /**
-     * GetAllGroupedByCountry
-     *
-     *  Get all the attributes returned by hopkins API grouped by country region
-     *
-     * @return array
-     */
+    * GetAllGroupedByCountry
+    *
+    *  Get all the attributes returned by hopkins API grouped by country region
+    *
+    * @return array
+    */
     public function GetAllGroupedByCountry() : array
     {
         $attributes = collect($this->GetAll());
         $grouped = $attributes->groupBy('Country_Region');
 
         return $grouped->toArray();
+    }
+
+    /**
+    * GetTimeSeries
+    *
+    *  Get all the confirmed cases,recovered,deaths in timeseries
+    *
+    * @return array
+    */
+    public function GetTimeSeries() : array
+    {
+        $response = $this->client->get(Arr::get(IBaseAdapter::JOHNHOPKINS_API, 'gettimeseries.path'));
+        foreach ($response["features"] as $feature) {
+            $timeseries[] = $feature["attributes"];
+        }
+
+        return $timeseries;
     }
 }

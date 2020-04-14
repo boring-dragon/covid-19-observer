@@ -19,13 +19,6 @@ class Client extends GuzzleClient
         $response = $this->request('Get', $endpoint);
         $rawresponse = $response->getBody();
         
-        $responseArray = json_decode($rawresponse, true);
-
-        $data = [
-            'data' => $responseArray, 
-            'status_code' => $response->getStatusCode()
-        ];
-
-        return $data;
+        return json_decode($rawresponse, true);
     }
 }

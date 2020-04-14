@@ -1,34 +1,19 @@
 <?php
 
-class GlobalStatisticsTest extends \PHPUnit\Framework\TestCase
+class Covid19APITest extends \PHPUnit\Framework\TestCase
 {
     protected $api_stack;
 
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $data = json_decode(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'covid19summary.json'), true);
-        $this->api_stack = $data["Countries"];
+        $this->api_stack = new \Jinas\Covid19\Adapters\Covid19API;
     }
 
-    public function testCanFetchCases()
-    {
-        $globalstats = new \Jinas\Covid19\GlobalStatistics;
-
-        $fetchcases = $globalstats->FetchCases();
-        
-        $this->assertEquals(200,$globalstats->api_statuscode);
-
-        //Checking if the FetchCases method is chainable
-        $this->assertInstanceOf(\Jinas\Covid19\GlobalStatistics::class,$fetchcases);
-    }
 
     public function testIfGetTotalIsValid()
     {
-        $globalstats = new \Jinas\Covid19\GlobalStatistics;
-        $globalstats->api_response = $this->api_stack;
-
-        $array = $globalstats->GetTotal();
+        $array = $this->api_stack->GetTotal();
 
         $this->assertIsArray($array);
 
@@ -37,20 +22,25 @@ class GlobalStatisticsTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('total_deaths', $array);
         $this->assertArrayHasKey('total_active', $array);
 
+        $this->assertArrayHasKey('new_confirmed', $array);
+        $this->assertArrayHasKey('new_deaths', $array);
+        $this->assertArrayHasKey('new_recovered', $array);
+
         $this->assertNotEmpty($array["total_confirmed"]);
         $this->assertNotEmpty($array["total_recovered"]);
         $this->assertNotEmpty($array["total_deaths"]);
         $this->assertNotEmpty($array["total_active"]);
 
+        $this->assertNotEmpty($array["new_confirmed"]);
+        $this->assertNotEmpty($array["new_deaths"]);
+        $this->assertNotEmpty($array["new_recovered"]);
     }
 
 
     public function testIfGetAllIsValid()
     {
-        $globalstats = new \Jinas\Covid19\GlobalStatistics;
-        $globalstats->api_response = $this->api_stack;
 
-        $array = $globalstats->GetAll();
+        $array = $this->api_stack->GetAll();
 
         $this->assertIsArray($array);
 
@@ -64,6 +54,5 @@ class GlobalStatisticsTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('TotalDeaths', $index);
         $this->assertArrayHasKey('NewRecovered', $index);
         $this->assertArrayHasKey('TotalRecovered', $index);
-
     }
 }
