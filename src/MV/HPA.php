@@ -84,7 +84,7 @@ class HPA
     public function GetLocalTotal() : array
     {
         $total = collect(Arr::get($this->api_response, 'local.surveillance'));
-        $newcollection = collect($total->pluck('english_label'));
+        $newcollection = collect($total->pluck('id'));
         $combinedArray = $newcollection->combine($total->pluck('statistic'));
 
         return $combinedArray->toArray();
