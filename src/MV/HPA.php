@@ -30,47 +30,28 @@ class HPA
         $this->api_response =  collect($data);
     }
     
-    /**
-     * GetTotalExceptChina
-     *
-     *  Get total number of cases globaly Except china
-     *
-     * @return array
-     */
-    public function GetTotalExceptChina() : array
-    {
-        $total = collect([
-            "source" => "Ministry of Health Republic of Maldives",
-            "label" => "Outside China",
-            "confirmed" => Arr::get($this->api_response, 'global.not_china.confirmed.total'),
-            "recovered" => Arr::get($this->api_response, 'global.not_china.recovered.total'),
-            "deaths" => Arr::get($this->api_response, 'global.not_china.deaths.total'),
-            "last_updated" => Arr::get($this->api_response, 'global.last_updated')
-        ]);
-
-        return $total->toArray();
-    }
     
     /**
-     * GetTotalChina
-     *
-     *  Get total number of cases in china
+     * GetGlobalTotal
+     * 
+     *  Get global total returned by hpa API.
      *
      * @return array
      */
-    public function GetTotalChina() : array
+    public function GetGlobalTotal() : array
     {
-        $total = collect([
+        $total = [
             "source" => "Ministry of Health Republic of Maldives",
-            "label" => "In China",
-            "confirmed" => Arr::get($this->api_response, 'global.china.confirmed.total'),
-            "recovered" => Arr::get($this->api_response, 'global.china.recovered.total'),
-            "deaths" => Arr::get($this->api_response, 'global.china.deaths.total'),
+            "label" => "Global Total",
+            "confirmed" => (int) Arr::get($this->api_response, 'global.total.confirmed'),
+            "recovered" => (int) Arr::get($this->api_response, 'global.total.recovered'),
+            "deaths" => (int) Arr::get($this->api_response, 'global.total.deaths'),
             "last_updated" => Arr::get($this->api_response, 'global.last_updated')
-        ]);
+        ];
 
-        return $total->toArray();
+        return $total;
     }
+    
     
     /**
      * GetLocalTotal
@@ -87,7 +68,7 @@ class HPA
         $newcollection = collect($total->pluck('id'));
         $combinedArray = $newcollection->combine($total->pluck('statistic'));
 
-        return $combinedArray->toArray();
+        return $this->tranformLocalTotal($combinedArray->toArray());
     }
 
     
@@ -100,8 +81,8 @@ class HPA
      */
     public function GetAlertLevels() : array
     {
-        $alerts = collect(Arr::get($this->api_response, 'local.risk_level'));
-        return $alerts->toArray();
+        $alerts = Arr::get($this->api_response, 'local.risk_level');
+        return $alerts;
     }
     
     /**
@@ -112,8 +93,8 @@ class HPA
      */
     public function GetRestrictedPlaces() : array
     {
-        $restricted = collect(Arr::get($this->api_response, 'local.restricted'));
-        return $restricted->toArray();
+        $restricted = Arr::get($this->api_response, 'local.restricted');
+        return $restricted;
     }
     
     /**
@@ -128,5 +109,24 @@ class HPA
     public function GetTravelBans() : array
     {
         return Arr::get($this->api_response, 'local.travel_bans');
+    }
+
+    protected function tranformLocalTotal($totals)
+    {
+        return [
+            'total_confirmed' => (int)$totals["CC"],
+            'total_recovered' => (int)$totals["RC"],
+            'total_deaths' => (int)$totals["DD"],
+            'total_active' => (int)$totals["ACM"],
+            'hospitalized'=> (int)$totals["HOS"],
+            'locals' => (int)$totals["L"],
+            'foreigners' => (int)$totals["F"],
+            'outside_country' => (int)$totals["ACO"],
+            'quarantine' => (int)$totals["QF"],
+            'isolation' => (int)$totals["IF"],
+            'samples_tested' => (int)$totals["SC"],
+            'samples_negative' => (int)$totals["SNG"],
+            'samples_pending' => (int)$totals["SPN"]
+        ];
     }
 }
