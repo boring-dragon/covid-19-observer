@@ -2,6 +2,7 @@
 /*
     This class is a wrapper around HPA API end-point
 */
+
 namespace Jinas\Covid19\MV;
 
 use Jinas\Covid19\Http\Client;
@@ -23,14 +24,14 @@ class HPA
      * @param  mixed $endpoint
      * @return void
      */
-    protected function FetchFromAPI(string $endpoint) : void
+    protected function FetchFromAPI(string $endpoint): void
     {
         $client = new Client;
         $data = $client->get($endpoint);
         $this->api_response =  collect($data);
     }
-    
-    
+
+
     /**
      * GetGlobalTotal
      * 
@@ -38,7 +39,7 @@ class HPA
      *
      * @return array
      */
-    public function GetGlobalTotal() : array
+    public function GetGlobalTotal(): array
     {
         $total = [
             "source" => "Ministry of Health Republic of Maldives",
@@ -51,8 +52,8 @@ class HPA
 
         return $total;
     }
-    
-    
+
+
     /**
      * GetLocalTotal
      *
@@ -62,7 +63,7 @@ class HPA
      *
      * @return array
      */
-    public function GetLocalTotal() : array
+    public function GetLocalTotal(): array
     {
         $total = collect(Arr::get($this->api_response, 'local.surveillance'));
         $newcollection = collect($total->pluck('id'));
@@ -71,7 +72,7 @@ class HPA
         return $this->tranformLocalTotal($combinedArray->toArray());
     }
 
-    
+
     /**
      * GetAlertLevels
      *
@@ -79,24 +80,24 @@ class HPA
      *
      * @return array
      */
-    public function GetAlertLevels() : array
+    public function GetAlertLevels(): array
     {
         $alerts = Arr::get($this->api_response, 'local.risk_level');
         return $alerts;
     }
-    
+
     /**
      * GetRestrictedPlaces
      *
      *  Get Local Restricted places from HPA
      * @return array
      */
-    public function GetRestrictedPlaces() : array
+    public function GetRestrictedPlaces(): array
     {
         $restricted = Arr::get($this->api_response, 'local.restricted');
         return $restricted;
     }
-    
+
     /**
      * GetTravelBans
      *
@@ -106,27 +107,53 @@ class HPA
      *
      * @return array
      */
-    public function GetTravelBans() : array
+    public function GetTravelBans(): array
     {
         return Arr::get($this->api_response, 'local.travel_bans');
+    }
+    
+    /**
+     * GetClinics
+     * 
+     *  Get the flu clinics details from HPA.
+     *
+     * @return array
+     */
+    public function GetClinics() : array
+    {
+        $clinics = collect(Arr::get($this->api_response, 'local.clinics'));
+
+        $clinics  = $clinics->map(function ($item, $key) {
+
+            return $clinicData[] = [
+                'en_name' => $item["english_name"],
+                'div_name' => $item["dhivehi_name"],
+                'open_hours_english' => $item["open_hours_english"],
+                'open_hours_dhivehi' => $item["open_hours_dhivehi"],
+                'description' => strip_tags($item["english_description"]),
+                'location' => $item["location"]
+            ];
+        });
+
+        return $clinics->toArray();
     }
 
     protected function tranformLocalTotal($totals)
     {
         return [
-            'total_confirmed' => (int)$totals["CC"],
-            'total_recovered' => (int)$totals["RC"],
-            'total_deaths' => (int)$totals["DD"],
-            'total_active' => (int)$totals["ACM"],
-            'hospitalized'=> (int)$totals["HOS"],
-            'locals' => (int)$totals["L"],
-            'foreigners' => (int)$totals["F"],
-            'outside_country' => (int)$totals["ACO"],
-            'quarantine' => (int)$totals["QF"],
-            'isolation' => (int)$totals["IF"],
-            'samples_tested' => (int)$totals["SC"],
-            'samples_negative' => (int)$totals["SNG"],
-            'samples_pending' => (int)$totals["SPN"]
+            'total_confirmed' => (int) $totals["CC"],
+            'total_recovered' => (int) $totals["RC"],
+            'total_deaths' => (int) $totals["DD"],
+            'total_active' => (int) $totals["ACM"],
+            'hospitalized' => (int) $totals["HOS"],
+            'locals' => (int) $totals["L"],
+            'foreigners' => (int) $totals["F"],
+            'outside_country' => (int) $totals["ACO"],
+            'quarantine' => (int) $totals["QF"],
+            'isolation' => (int) $totals["IF"],
+            'samples_tested' => (int) $totals["SC"],
+            'samples_negative' => (int) $totals["SNG"],
+            'samples_pending' => (int) $totals["SPN"]
         ];
     }
 }
