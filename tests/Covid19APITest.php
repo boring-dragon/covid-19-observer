@@ -22,18 +22,13 @@ class Covid19APITest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('total_deaths', $array);
         $this->assertArrayHasKey('total_active', $array);
 
-        $this->assertArrayHasKey('new_confirmed', $array);
-        $this->assertArrayHasKey('new_deaths', $array);
-        $this->assertArrayHasKey('new_recovered', $array);
-
+ 
         $this->assertNotEmpty($array["total_confirmed"]);
         $this->assertNotEmpty($array["total_recovered"]);
         $this->assertNotEmpty($array["total_deaths"]);
         $this->assertNotEmpty($array["total_active"]);
 
-        $this->assertNotEmpty($array["new_confirmed"]);
-        $this->assertNotEmpty($array["new_deaths"]);
-        $this->assertNotEmpty($array["new_recovered"]);
+     
     }
 
 
