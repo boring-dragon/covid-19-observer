@@ -73,6 +73,17 @@ List of available functions:
 - GetRestrictedPlaces(): Get Local Restricted places from HPA.
 - GetTravelBans(): Get all the travel bannned countries.
 
+
+### \Jinas\Covid19\MV\MvCases
+
+Wrapper around HPA Case API
+
+- GetAll(): Get all returned by the API.
+- GetCases(): Get all the cases returned by the API.
+- FilterCasesByAge(string $operator, $value): Filter cases by there age.
+- FilterCasesByNationality(string $nationality): Filter cases by nationality.
+- FilterCasesByGender($gender): Filter cases by gender.
+
 ### \Jinas\Covid19\MV\NewsFeed
 
 Fetch the news assosiated with covid 19 from maldivian news websites.
