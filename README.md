@@ -66,9 +66,9 @@ Wrapper around HPA MV API.
 
 List of available functions:
 
-- GetTotalExceptChina(): Get total number of cases globaly Except china.
-- GetTotalChina(): Get total number of cases in china.
+- GetGlobaTotal(): Get total number of cases globaly.
 - GetLocalTotal(): Get total Statistics In maldives.
+- GetClinics(): Get the flu clinics details from HPA.
 - GetAlertLevels(): Get Local Alert levels from HPA API.
 - GetRestrictedPlaces(): Get Local Restricted places from HPA.
 - GetTravelBans(): Get all the travel bannned countries.
