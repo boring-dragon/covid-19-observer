@@ -4,7 +4,6 @@ namespace Jinas\Covid19\Adapters;
 
 use Jinas\Covid19\Http\Client;
 use Tightenco\Collect\Support\Arr;
-use Jinas\Covid19\Adapters\IBaseAdapter;
 
 class Covid19API implements IBaseAdapter
 {
@@ -15,14 +14,12 @@ class Covid19API implements IBaseAdapter
 
     public function __construct()
     {
-        $this->client = new Client;
+        $this->client = new Client();
         $this->FetchCases();
     }
 
-
-
     /**
-     * FetchCases
+     * FetchCases.
      *
      *  Fetch the cases from API
      *
@@ -31,16 +28,17 @@ class Covid19API implements IBaseAdapter
     protected function FetchCases(): void
     {
         $data = $this->client->get(sprintf('%s/%s', Arr::get(IBaseAdapter::COVID19API, 'base_path.path'), Arr::get(IBaseAdapter::COVID19API, 'getsummary.path')));
-        $this->updated_at = $data["Date"];
-        $this->api_response = $data["Countries"];
+        $this->updated_at = $data['Date'];
+        $this->api_response = $data['Countries'];
     }
 
     /**
-     * GetTotal
+     * GetTotal.
      *
      *  Get Total number of confirmed cases,recovered and deaths globally
      *
      *  From covid19api API.
+     *
      * @return array
      */
     public function GetTotal(): array
@@ -50,15 +48,15 @@ class Covid19API implements IBaseAdapter
         $total = [
             'total_confirmed' => $cases->sum('TotalConfirmed'),
             'total_recovered' => $cases->sum('TotalRecovered'),
-            'total_deaths' => $cases->sum('TotalDeaths'),
-            'total_active' => ($cases->sum('TotalConfirmed') - $cases->sum('TotalRecovered') - $cases->sum('TotalDeaths'))
+            'total_deaths'    => $cases->sum('TotalDeaths'),
+            'total_active'    => ($cases->sum('TotalConfirmed') - $cases->sum('TotalRecovered') - $cases->sum('TotalDeaths')),
         ];
 
         return $total;
     }
 
     /**
-     * GetAll
+     * GetAll.
      *
      *  Get all the country data from covid19api.
      *
@@ -75,7 +73,8 @@ class Covid19API implements IBaseAdapter
 
     public function GetAllCountries(): array
     {
-        $countries = $this->client->get(sprintf('%s/%s',  Arr::get(IBaseAdapter::COVID19API, 'base_path.path'), Arr::get(IBaseAdapter::COVID19API, 'getcountries.path')));
+        $countries = $this->client->get(sprintf('%s/%s', Arr::get(IBaseAdapter::COVID19API, 'base_path.path'), Arr::get(IBaseAdapter::COVID19API, 'getcountries.path')));
+
         return $countries;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Jinas\Covid19\MV;
 
 use Jinas\Covid19\Http\Client;
@@ -7,7 +8,7 @@ use Tightenco\Collect\Support\Arr;
 class Feed
 {
     /**
-     * GetTimeline
+     * GetTimeline.
      *
      *  Get Global case Feed in dhivehi.
      *
@@ -15,11 +16,11 @@ class Feed
      *
      * @return array
      */
-    public function GetTimeline() : array
+    public function GetTimeline(): array
     {
-        $client = new Client;
-        $data = $client->get("https://api.coronamv.live/v1/open/global/feeds");
-        $collection = collect(Arr::get($data,'data.data'));
+        $client = new Client();
+        $data = $client->get('https://api.coronamv.live/v1/open/global/feeds');
+        $collection = collect(Arr::get($data, 'data.data'));
         $latest = $collection->reverse();
 
         return $latest->toArray();

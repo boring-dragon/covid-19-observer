@@ -8,7 +8,7 @@ use Jinas\Covid19\MV\News\Drivers\Sun;
 class NewsFeed
 {
     /**
-     * FetchNews
+     * FetchNews.
      *
      *  Fetch the news assosiated with covid 19 from maldivian news
      *
@@ -17,6 +17,7 @@ class NewsFeed
     public function FetchNews()
     {
         $NewsFeed = collect(Avas::ScrapNews())->merge(Sun::ScrapNews());
+
         return $NewsFeed->toArray();
     }
 }

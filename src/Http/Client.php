@@ -1,24 +1,25 @@
 <?php
+
 namespace Jinas\Covid19\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 
 class Client extends GuzzleClient
 {
-
     /**
-     * get
-     * 
+     * get.
+     *
      *  Guzzle http driver for sending api request
      *
-     * @param  mixed $endpoint
+     * @param mixed $endpoint
+     *
      * @return array
      */
-    public function get(string $endpoint) : array
+    public function get(string $endpoint): array
     {
         $response = $this->request('Get', $endpoint);
         $rawresponse = $response->getBody();
-        
+
         return json_decode($rawresponse, true);
     }
 }

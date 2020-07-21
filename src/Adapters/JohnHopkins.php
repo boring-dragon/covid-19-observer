@@ -1,9 +1,9 @@
 <?php
+
 namespace Jinas\Covid19\Adapters;
 
 use Jinas\Covid19\Http\Client;
 use Tightenco\Collect\Support\Arr;
-use Jinas\Covid19\Adapters\IBaseAdapter;
 
 class JohnHopkins implements IBaseAdapter
 {
@@ -13,25 +13,25 @@ class JohnHopkins implements IBaseAdapter
 
     public function __construct()
     {
-        $this->client = new Client;
+        $this->client = new Client();
         $this->FetchCases();
     }
 
     /**
-     * FetchCases
+     * FetchCases.
      *
      *  Fetch the cases from hopkin's API
      *
      * @return void
      */
-    protected function FetchCases() : void
+    protected function FetchCases(): void
     {
         $data = $this->client->get(Arr::get(IBaseAdapter::JOHNHOPKINS_API, 'getcases.path'));
-        $this->api_response = $data["features"];
+        $this->api_response = $data['features'];
     }
-    
+
     /**
-     * GetTotal
+     * GetTotal.
      *
      *  Get Total number of confirmed cases,recovered and deaths globally
      *
@@ -39,46 +39,46 @@ class JohnHopkins implements IBaseAdapter
      *
      * @return array
      */
-    public function GetTotal() : array
+    public function GetTotal(): array
     {
         $cases = collect($this->GetAll());
 
         $data = [
             'total_confirmed' => $cases->sum('Confirmed'),
             'total_recovered' => $cases->sum('Recovered'),
-            'total_deaths' => $cases->sum('Deaths')
+            'total_deaths'    => $cases->sum('Deaths'),
         ];
 
         return $data;
     }
-    
+
     /**
-     * GetAll
+     * GetAll.
      *
      *  Get all the attributes returned by hopkins API
      *
      * @return array
      */
-    public function GetAll() : array
+    public function GetAll(): array
     {
         foreach ($this->api_response as $feature) {
-            $sliced_array[] = Arr::only($feature["attributes"], [
-            'Province_State',
-            'Country_Region',
-            'Confirmed',
-            'Recovered',
-            'Deaths',
-            'Active',
-            'Lat',
-            'Long_'
+            $sliced_array[] = Arr::only($feature['attributes'], [
+                'Province_State',
+                'Country_Region',
+                'Confirmed',
+                'Recovered',
+                'Deaths',
+                'Active',
+                'Lat',
+                'Long_',
             ]);
         }
 
         return $sliced_array;
     }
-    
+
     /**
-     * GetAllCountries
+     * GetAllCountries.
      *
      *  Get an array of countries infected by covid-19
      *
@@ -86,19 +86,19 @@ class JohnHopkins implements IBaseAdapter
      *
      * @return array
      */
-    public function GetAllCountries() : array
+    public function GetAllCountries(): array
     {
         foreach ($this->GetAll() as $item) {
             $countries[] = Arr::only($item, ['Country_Region']);
         }
         $flattened = Arr::flatten($countries);
         $removedDuplicates = array_unique($flattened);
-        
+
         return $removedDuplicates;
     }
-    
+
     /**
-     * GetTotalByCountry
+     * GetTotalByCountry.
      *
      *  Get the total confirmed cases,recovered,deaths in countries
      *
@@ -106,7 +106,7 @@ class JohnHopkins implements IBaseAdapter
      *
      * @return array
      */
-    public function GetTotalByCountry() : array
+    public function GetTotalByCountry(): array
     {
         $countries = $this->GetAllCountries();
 
@@ -117,26 +117,25 @@ class JohnHopkins implements IBaseAdapter
             $recovered = $AllCases->where('Country_Region', $country)->sum('Recovered');
             $confirmed = $AllCases->where('Country_Region', $country)->sum('Confirmed');
 
-            
-            $countryTotal[] = array(
-                'country' => $country,
+            $countryTotal[] = [
+                'country'   => $country,
                 'confirmed' => $confirmed,
                 'recovered' => $recovered,
-                'deaths' => $deaths
-            );
+                'deaths'    => $deaths,
+            ];
         }
 
         return $countryTotal;
     }
 
     /**
-    * GetAllGroupedByCountry
-    *
-    *  Get all the attributes returned by hopkins API grouped by country region
-    *
-    * @return array
-    */
-    public function GetAllGroupedByCountry() : array
+     * GetAllGroupedByCountry.
+     *
+     *  Get all the attributes returned by hopkins API grouped by country region
+     *
+     * @return array
+     */
+    public function GetAllGroupedByCountry(): array
     {
         $attributes = collect($this->GetAll());
         $grouped = $attributes->groupBy('Country_Region');
@@ -145,17 +144,17 @@ class JohnHopkins implements IBaseAdapter
     }
 
     /**
-    * GetTimeSeries
-    *
-    *  Get all the confirmed cases,recovered,deaths in timeseries
-    *
-    * @return array
-    */
-    public function GetTimeSeries() : array
+     * GetTimeSeries.
+     *
+     *  Get all the confirmed cases,recovered,deaths in timeseries
+     *
+     * @return array
+     */
+    public function GetTimeSeries(): array
     {
         $response = $this->client->get(Arr::get(IBaseAdapter::JOHNHOPKINS_API, 'gettimeseries.path'));
-        foreach ($response["features"] as $feature) {
-            $timeseries[] = $feature["attributes"];
+        foreach ($response['features'] as $feature) {
+            $timeseries[] = $feature['attributes'];
         }
 
         return $timeseries;

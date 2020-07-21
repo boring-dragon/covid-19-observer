@@ -13,10 +13,10 @@ class WorldoMeter implements IBaseAdapter
     {
         $this->GetHtml();
     }
-    
+
     /**
-     * GetTotal
-     * 
+     * GetTotal.
+     *
      *  Get the total confirmed, deaths and recovered cases from worldometer
      *
      * @return array
@@ -33,10 +33,10 @@ class WorldoMeter implements IBaseAdapter
         //$total->push(['total_active' => ($total->get('total_confirmed') - $total->get('total_recovered') - $total->get('total_deaths'))]);
         return $total->toArray();
     }
-    
+
     /**
-     * GetAll
-     * 
+     * GetAll.
+     *
      *  Get Extra Information in Worldometer
      *
      * @return array
@@ -58,7 +58,7 @@ class WorldoMeter implements IBaseAdapter
             'mild_condition',
             'critical_condition',
             'discharged',
-            'discharged_deaths'
+            'discharged_deaths',
         ]);
 
         $data = $labels->combine($rawdata);
