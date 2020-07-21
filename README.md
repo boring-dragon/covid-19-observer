@@ -1,6 +1,7 @@
 # Covid-19 observer
 
 [![Build Status](https://travis-ci.org/jinas123/covid-19-observer.svg?branch=master)](https://travis-ci.org/jinas123/covid-19-observer)
+[![StyleCI](https://github.styleci.io/repos/248749237/shield?branch=master)](https://github.styleci.io/repos/248749237?branch=master)
 
 PHP Toolkit to get data about covid19.
 
