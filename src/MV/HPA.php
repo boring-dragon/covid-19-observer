@@ -109,7 +109,7 @@ class HPA
      */
     public function GetTravelBans(): array
     {
-        return Arr::get($this->api_response, 'local.travel_bans');
+        return (array) Arr::get($this->api_response, 'local.travel_bans');
     }
     
     /**
