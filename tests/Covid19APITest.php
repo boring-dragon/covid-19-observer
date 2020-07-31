@@ -4,12 +4,10 @@ class Covid19APITest extends \PHPUnit\Framework\TestCase
 {
     protected $api_stack;
 
-
     protected function setUp(): void
     {
-        $this->api_stack = new \Jinas\Covid19\Adapters\Covid19API;
+        $this->api_stack = new \Jinas\Covid19\Adapters\Covid19API();
     }
-
 
     public function testIfGetTotalIsValid()
     {
@@ -22,19 +20,14 @@ class Covid19APITest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('total_deaths', $array);
         $this->assertArrayHasKey('total_active', $array);
 
- 
-        $this->assertNotEmpty($array["total_confirmed"]);
-        $this->assertNotEmpty($array["total_recovered"]);
-        $this->assertNotEmpty($array["total_deaths"]);
-        $this->assertNotEmpty($array["total_active"]);
-
-     
+        $this->assertNotEmpty($array['total_confirmed']);
+        $this->assertNotEmpty($array['total_recovered']);
+        $this->assertNotEmpty($array['total_deaths']);
+        $this->assertNotEmpty($array['total_active']);
     }
-
 
     public function testIfGetAllIsValid()
     {
-
         $array = $this->api_stack->GetAll();
 
         $this->assertIsArray($array);

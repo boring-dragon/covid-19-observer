@@ -2,56 +2,54 @@
 
 namespace Jinas\Covid19\MV;
 
-use Exception;
 use Jinas\Covid19\Http\Client;
-use Tightenco\Collect\Support\Arr;
 
 class MvCases
 {
-    protected const API_URL = "https://covid19.health.gov.mv/api/fetch_cases";
+    protected const API_URL = 'https://covid19.health.gov.mv/api/fetch_cases';
 
     protected $api_response;
-
 
     public function __construct()
     {
         $this->FetchCases();
     }
-    
+
     /**
-     * GetAll
-     * 
+     * GetAll.
+     *
      *  Get all returned by the API
      *
      * @return array
      */
-    public function GetAll() : array
+    public function GetAll(): array
     {
         return $this->api_response;
     }
-    
+
     /**
-     * GetCases
-     * 
+     * GetCases.
+     *
      *  Get all the cases returned by the API
      *
      * @return array
      */
-    public function GetCases() : array
+    public function GetCases(): array
     {
-        return $this->api_response["cases"];
+        return $this->api_response['cases'];
     }
-    
+
     /**
-     * FilterCasesByAge
-     * 
+     * FilterCasesByAge.
+     *
      *  Filter cases by there age
      *
-     * @param  string $operator
-     * @param  mixed $value
+     * @param string $operator
+     * @param mixed  $value
+     *
      * @return array
      */
-    public function FilterCasesByAge(string $operator, $value) : array
+    public function FilterCasesByAge(string $operator, $value): array
     {
         $cases = collect($this->GetCases());
 
@@ -59,49 +57,49 @@ class MvCases
 
         return $filtered->toArray();
     }
-    
+
     /**
-     * FilterCasesByNationality
-     * 
+     * FilterCasesByNationality.
+     *
      *  Filter cases by nationality.
-     * 
+     *
      * Ex: FilterCasesByNationality("Bangladesh")
      *
-     * @param  mixed $nationality
+     * @param mixed $nationality
+     *
      * @return void
      */
-    public function FilterCasesByNationality(string $nationality) : array
+    public function FilterCasesByNationality(string $nationality): array
     {
         $cases = collect($this->GetCases());
 
         $filtered = $cases->where('nationality', '=', $nationality);
 
         return $filtered->toArray();
-
     }
-    
+
     /**
-     * FilterCasesByGender
-     * 
+     * FilterCasesByGender.
+     *
      *  Filter cases by gender
-     * 
+     *
      *  Ex: FilterCasesByGender("female");
      *
-     * @param  mixed $gender
+     * @param mixed $gender
+     *
      * @return void
      */
-    public function FilterCasesByGender(string $gender) : array
-    {        
+    public function FilterCasesByGender(string $gender): array
+    {
         $cases = collect($this->GetCases());
 
         $filtered = $cases->where('gender', '=', ucfirst($gender));
 
         return $filtered->toArray();
-
     }
 
-     /**
-     * FetchCases
+    /**
+     * FetchCases.
      *
      *  Fetch the cases from API
      *
@@ -109,7 +107,7 @@ class MvCases
      */
     protected function FetchCases(): void
     {
-        $client = new Client;
+        $client = new Client();
         $this->api_response = $client->get($this::API_URL);
     }
 }
