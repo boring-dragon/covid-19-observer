@@ -124,6 +124,20 @@ List of available functions:
 - GetTotal(): Get Total number of confirmed cases,recovered,active and deaths globally.
 - GetAll(): Get all the attributes returned by API.
 
+
+## Image Render
+
+This package also has ability to render the statistics as an image.
+
+### Usage
+
+```php
+use Jinas\Covid19\Render;
+
+Render::RenderGlobal();
+
+```
+
 ## Source
 
 - [John Hopkins](https://www.jhu.edu/)
