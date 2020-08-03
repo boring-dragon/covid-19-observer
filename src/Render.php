@@ -7,7 +7,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 class Render
 {
     //Configs For output
-    protected const FONT = __DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'Aleo-Bold.ttf';
+    protected const FONT = __DIR__.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR.'Aleo-Bold.ttf';
     protected const FONT_SIZE = 180;
     protected const TEXT_ALIGN = 'center';
 
@@ -22,7 +22,7 @@ class Render
     public static function RenderGlobal(): void
     {
         //Getting the world image template to render
-        $img = Image::make(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'world.png');
+        $img = Image::make(__DIR__.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'world.png');
         $stats = Statistics::LoadAdapter(new \Jinas\Covid19\Adapters\Covid19API());
         $cases = $stats->GetTotal();
 
