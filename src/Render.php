@@ -64,8 +64,7 @@ class Render
             $font->valign('top');
             $font->angle(0);
         });
-        //$img->save('public/worldstats.jpg');
 
-        return $img->response();
+        return $img->encode('png');
     }
 }
