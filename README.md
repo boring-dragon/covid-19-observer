@@ -127,10 +127,10 @@ List of available functions:
 
 ## Image Render
 
-![globalcases](https://coronamv.live/render/global)
-This image is auto updated
-
 This package also has ability to render the statistics as an image.
+
+![globalcases](https://coronamv.live/render/global)
+The image is auto updated
 
 ### Usage
 
