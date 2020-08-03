@@ -127,6 +127,8 @@ List of available functions:
 
 ## Image Render
 
+![globalcases](https://coronamv.live/render/global)
+
 This package also has ability to render the statistics as an image.
 
 ### Usage
