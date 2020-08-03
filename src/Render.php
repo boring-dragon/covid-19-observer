@@ -15,11 +15,8 @@ class Render
      * RenderGlobal.
      *
      *  Render the world stats as an image
-     *z
-     *
-     * @return void
      */
-    public static function RenderGlobal(): void
+    public static function RenderGlobal()
     {
         //Getting the world image template to render
         $img = Image::make(__DIR__.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'world.png');
@@ -69,6 +66,6 @@ class Render
         });
         //$img->save('public/worldstats.jpg');
 
-        echo $img->response();
+        return $img->response();
     }
 }
