@@ -7,9 +7,9 @@
         "email": "j@live.mv"
     }],
     "require": {
-        "tightenco/collect": "^7.2",
+        "tightenco/collect": "^7.2|^8.0.4",
         "fabpot/goutte": "^4.0",
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^6.5|^7.0.1",
         "intervention/image": "^2.5"
     },
     "autoload": {
