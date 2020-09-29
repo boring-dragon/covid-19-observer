@@ -7,12 +7,12 @@ use GuzzleHttp\Client as GuzzleClient;
 class Client
 {
     protected $client;
-    
+
     public function __construct()
     {
         $this->client = new GuzzleClient();
     }
-    
+
     /**
      * get.
      *
@@ -25,6 +25,7 @@ class Client
     public function get(string $endpoint): array
     {
         $response = $this->client->request('Get', $endpoint);
+
         return json_decode($response->getBody(), true);
     }
 }
