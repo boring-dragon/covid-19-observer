@@ -4,8 +4,15 @@ namespace Jinas\Covid19\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 
-class Client extends GuzzleClient
+class Client
 {
+    protected $client;
+    
+    public function __construct()
+    {
+        $this->client = new GuzzleClient();
+    }
+    
     /**
      * get.
      *
@@ -17,9 +24,7 @@ class Client extends GuzzleClient
      */
     public function get(string $endpoint): array
     {
-        $response = $this->request('Get', $endpoint);
-        $rawresponse = $response->getBody();
-
-        return json_decode($rawresponse, true);
+        $response = $this->client->request('Get', $endpoint);
+        return json_decode($response->getBody(), true);
     }
 }
